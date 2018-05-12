@@ -1,0 +1,15 @@
+# $maas_IFACE Network Rules
+gw_IFACE="gw01"
+maas_IFACE="gw02"
+
+# Allow outbound dns on $maas_IFACE
+iptables -A OUTPUT -p udp -o $maas_IFACE  --dport 53 -j ACCEPT
+iptables -A INPUT -p udp -i $maas_IFACE --sport 53 -j ACCEPT
+
+# Allow INPUT & FORWARD from $maas_IFACE
+iptables -A INPUT -i $maas_IFACE -j ACCEPT
+iptables -A FORWARD -i $maas_IFACE -o $gw_IFACE -j ACCEPT
+
+# Allow connections from $gw_IFACE if connection originates from $maas_IFACE
+iptables -A FORWARD -i $gw_IFACE -o $maas_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+

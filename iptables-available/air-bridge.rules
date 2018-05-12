@@ -1,0 +1,15 @@
+# $internal_IFACE Network Rules
+#external_IFACE="gw01"
+#internal_IFACE="gw02"
+
+# Allow outbound dns on $internal_IFACE
+iptables -A OUTPUT -p udp -o $internal_IFACE  --dport 53 -j ACCEPT
+iptables -A INPUT -p udp -i $internal_IFACE --sport 53 -j ACCEPT
+
+# Allow INPUT & FORWARD from $internal_IFACE
+iptables -A INPUT -i $internal_IFACE -j ACCEPT
+iptables -A FORWARD -i $internal_IFACE -o $external_IFACE -j ACCEPT
+
+# Allow connections from $external_IFACE if connection originates from $internal_IFACE
+iptables -A FORWARD -i $external_IFACE -o $internal_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+

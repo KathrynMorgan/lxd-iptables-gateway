@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Set Forwarding IP Address
+fwd_BASTION_SSH_IP="11.11.137.243"
+
+# SSH 22
+iptables -A PREROUTING -t nat -i $external_IFACE -p tcp --dport 22 -j DNAT --to $fwd_BASTION_SSH_IP:22
+iptables -A FORWARD -i $external_IFACE -o $internal_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -p tcp -d $fwd_BASTION_SSH_IP --dport 22 -j ACCEPT

@@ -1,0 +1,15 @@
+# $cplane_IFACE
+gw_IFACE="gw01"
+cplane_IFACE="cp01"
+
+# Allow outbound dns on $cplane_IFACE
+iptables -A OUTPUT -p udp -o $cplane_IFACE --dport 53 -j ACCEPT
+iptables -A INPUT -p udp -i $cplane_IFACE --sport 53 -j ACCEPT
+
+# Allow INPUT & FORWARD from $cplane_IFACE
+iptables -A INPUT -i $cplane_IFACE -j ACCEPT
+iptables -A FORWARD -i $cplane_IFACE -o $gw_IFACE -j ACCEPT
+
+# Allow connections from $gw_IFACE if connection originates from $cplane_IFACE
+iptables -A FORWARD -i $gw_IFACE -o $cplane_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+vim /root/dhcpd.conf
+systemctl restart isc-dhcp-server
+sleep 1
+systemctl status isc-dhcp-server

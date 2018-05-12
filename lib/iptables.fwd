@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Set IFACE Names
+external_IFACE="gw01"
+cplane_IFACE="cp01"
+maas_IFACE="mvn11"
+
+# Set Forwarding IP Address
+fwd_HAPROXY_IP="11.12.1.15"
+fwd_BIND_IP="11.12.1.21"
+fwd_SSHGW_IP="172.10.195.161"
+
+# HAProxy 443
+iptables -A PREROUTING -t nat -i $external_IFACE -p tcp --dport 443 -j DNAT --to $fwd_HAPROXY_IP:443
+iptables -A FORWARD -i $external_IFACE -o $cplane_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -p tcp -d $fwd_HAPROXY_IP --dport 443 -j ACCEPT
+
+# HAProxy 80
+iptables -A PREROUTING -t nat -i $external_IFACE -p tcp --dport 80 -j DNAT --to $fwd_HAPROXY_IP:80
+iptables -A FORWARD -i $external_IFACE -o $cplane_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -p tcp -d $fwd_HAPROXY_IP --dport 80 -j ACCEPT
+
+# SSH 22
+iptables -A PREROUTING -t nat -i $external_IFACE -p tcp --dport 22 -j DNAT --to $fwd_SSHGW_IP:22
+iptables -A FORWARD -i $external_IFACE -o $maas_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -p tcp -d $fwd_SSHGW_IP --dport 22 -j ACCEPT
+
+# BIND9
+iptables -A PREROUTING -t nat -i $maas_IFACE -p tcp --dport 53 -j DNAT --to $fwd_BIND_IP:53
+iptables -A FORWARD -i $maas_IFACE -o $cplane_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -p tcp -d $fwd_BIND_IP --dport 53 -j ACCEPT
+

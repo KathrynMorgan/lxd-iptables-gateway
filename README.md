@@ -1,2 +1,3 @@
-# lxd-router
-LXD+OVS based Router/Network
+## LXD Gateway template files
+
+WORK IN PROGRESS

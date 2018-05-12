@@ -1,0 +1,4 @@
+#!/bin/bash
+# Clear All IPTABLES Rules
+iptables -F
+iptables -L -v

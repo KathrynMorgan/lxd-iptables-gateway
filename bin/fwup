@@ -1,0 +1,26 @@
+#!/bin/bash -e
+# Raise FW rules
+
+# delay for 5 seconds
+sleep 2
+
+# Load IPTABLES
+#iptables -F
+#iptables -X
+
+# Load base firewall rules
+echo "IPTABLES: Loading Firewall Rules"
+source /root/firewall-builder/iptables
+
+# Load base interface rules
+echo "IPTABLES: Loading interface rules"
+source /root/firewall-builder/*.rules
+source /root/firewall-builder/*.rules
+
+# Load iptables forwarding rules
+echo "IPTABLES: Loading forwarding rules"
+source /root/firewall-builder/*.fwd
+
+# Show rules & confirm startup complete
+iptables -L -v
+echo "IPTABLES: Startup Complete"
