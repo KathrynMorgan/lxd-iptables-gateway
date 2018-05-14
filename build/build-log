@@ -1,382 +1,98 @@
-    1  visudo
-    2  exit
-    3  cd
-    4  clear
-    5  exit
-    6  clear
-    7  tmux a t0
-    8  tmux attach t0
-    9  tmux ls
-   10  tmux a -t 0
-   11  cd
-   12  clear
-   13  apt-get install tmux
-   14  clear
-   15  tmux
-   16  lslslslslslslslslslslslslslslslslslslslslslslslsccccccevhhvjbtttivvbtkvbcluvcndvbbjgibbtcelv
-   17  ccccccevhhvjneeldeldveulheklbnfnkgkecirhvvfk
-   18  ccccccevhhvjthnkekkdvtkduvrjlfvflhtuuuhbivti
-   19  clear
-   20  apt install lxd openvswitch-switch zfsutils-linux -y --install-recommends
-   21  clear
-   22  modprobe zfs
-   23  lxd init
-   24  apt-get install vim -y
-   25  vim lxd-init.yaml
-   26  cat <<EOF > lxd-init.yaml
-   27  config:
-   28    core.https_address: '[::]:8443'
-   29    core.trust_password: Password1
-   30    images.auto_update_interval: "0"
-   31  cluster: null
-   32  networks:
-   33  - config:
-   34      ipv4.address: auto
-   35      ipv6.address: none
-   36    description: ""
-   37    managed: false
-   38    name: lxdbr0
-   39    type: ""
-   40  storage_pools:
-   41  - config:
-   42      size: 128GB
-   43    description: ""
-   44    name: default
-   45    driver: zfs
-   46  profiles:
-   47  - config: {}
-   48    description: ""
-   49    devices:
-   50      eth0:
-   51        name: eth0
-   52        nictype: bridged
-   53        parent: lxdbr0
-   54        type: nic
-   55      root:
-   56        path: /
-   57        pool: default
-   58        type: disk
-   59    name: default
-   60  EOF
-   61  cat lxd-init.yaml 
-   62  clear
-   63  ovs-vsctl show
-   64  ovs-vsctl add-br air-bridge
-   65  lxc profile copy default router
-   66  lxc list
-   67  clear
-   68  lxc profile edit router
-   69  clear
-   70  lxd launch ubuntu: edge-wifi-gw01
-   71  lxc launch ubuntu: edge-wifi-gw01
-   72  clear
-   73  lxc network create air-bridge
-   74  ovs-vsctl del-br air-bridge
-   75  lxc network create air-bridge
-   76  lxc network edit air-bridge
-   77  ovs-vsctl add-br air-bridge
-   78  reboot
-   79  exit
-   80  ip a
-   81  clear
-   82  lxc network attach air-bridge edge-wifi-gw01 eth0 eth0
-   83  lxc profile edit router
-   84  clear
-   85  lxc file pull edge-wifi-gw01/root/lxd-router/rc.local
-   86  lxc file pull edge-wifi-gw01/root/lxd-router/rc.local .
-   87  ls
-   88  ln rc.local /etc/rc.local -f
-   89  ls
-   90  apt install rc
-   91  systemctl enable rc-local.service
-   92  systemctl start rc-local.service
-   93  systemctl status rc-local.service
-   94  vim /etc/systemd/system/rc-local.service
-   95  ln /etc/systemd/system/rc-local.service .
-   96  ls
-   97  lxc file push ./rc-local.service edge-wifi-gw01
-   98  lxc file push ./rc-local.service edge-wifi-gw01/root/lxd-router
-   99  lxc file push ./rc-local.service edge-wifi-gw01/root/lxd-router/
-  100  systemctl enable rc-local
-  101  systemctl start rc-local
-  102  clewar
-  103  clear
-  104  systemctl start rc-local
-  105  apt-cache show rc
-  106  clear
-  107  apt purge rc
-  108  clear
-  109  vim /etc/rc.local 
-  110  ls
-  111  vim /etc/rc.local 
-  112  systemctl start rc-local
-  113  systemctl status rc-local
-  114  clear
-  115  source /etc/rc.local 
-  116  cd
-  117  tmux
-  118  exit
-  119  cd
-  120  celar
-  121  clear
-  122  ls
-  123  clear
-  124  tmux
-  125  tmux list-sessions 
-  126  tmux attach -t 0
-  127  ovs-vsctl show
-  128  lxc network list
-  129  lxc profile copy default int
-  130  lxc profile edit int
-  131  lxc launch ubuntu: test -p int
-  132  ovs-vsctl show
-  133  lxc delete --force test
-  134  clear
-  135  lxc list
-  136  lxc delete --force edge-wifi-gw01 
-  137  lxc launch ubuntu:bionic edge-wifi-gw01 
-  138  lxc exec edge-wifi-gw01 bash
-  139  clear
-  140  lxc config show edge-wifi-gw01 
-  141  clear
-  142  lxc list
-  143  lxc start
-  144  lxc start edge-wifi-gw01 
-  145  clear
-  146  lxc list
-  147  lxc exec edge-wifi-gw01 bash
-  148  clear
-  149  ip a
-  150  clear
-  151  lxc exec edge-wifi-gw01 bash
-  152  celar
-  153  clear
-  154  lxc list
-  155  lxc network edit air-bridge
-  156  lxc network attach air-bridge edge-wifi-gw01 eth1 eth1
-  157  lxc exec edge-wifi-gw01 bash
-  158  clear
-  159  lxc profile list
-  160  lxc launch ubuntu: test -p int
-  161  lxc list
-  162  ls
-  163  rm rc.local 
-  164  systemctl disable rc-local
-  165  rm rc-local.service 
-  166  clear
-  167  lxc exec edge-wifi-gw01 tree /root/lxd-router/
-  168  lxc file pull edge-wifi-gw01/root/lxd-router/bin/iptables-start.sh .
-  169  ls
-  170  vim iptables-start.sh 
-  171  ln iptables-start.sh /etc/init.d/
-  172  ./iptables-start.sh 
-  173  clear
-  174  lxc config set edge-wifi-gw01 security.priviledged true
-  175  lxc config set edge-wifi-gw01 security.privileged true
-  176  clear
-  177  vim iptables-start.sh 
-  178  clear
-  179  ls
-  180  cd
-  181  ls
-  182  pwd
-  183  clear
-  184  ls
-  185  source iptables-start.sh 
-  186  sysctl status net.ipv4.ip_forward
-  187  sysctl net.ipv4.ip_forward
-  188  clear
-  189  lxc exec edge-wifi-gw01 bash
-  190  ip r
-  191  ping google.com
-  192  lxc restart edge-wifi-gw01 
-  193  lxc exec edge-wifi-gw01 bash
-  194  clear
-  195  lxc network show default
-  196  lxc network list
-  197  lxc network show lxdbr0
-  198  lxc exec edge-wifi-gw01 bash
-  199  clear
-  200  ip a
-  201  lxc network edit lxdbr0
-  202  clear
-  203  ls
-  204  lxc exec edge-wifi-gw01 bash
-  205  lxc list
-  206  lxc file pull edge-wifi-gw01/root/lxd-router.tar .
-  207  lxc delete --force edge-wifi-gw01 
-  208  lxc launch ubuntu:bionic edge-wifi-gw01
-  209  lxc list
-  210  lxc config show edge-wifi-gw01 
-  211  lxc network attach lxdbr0 edge-wifi-gw01 eth2 eth2
-  212  lxc restart edge-wifi-gw01 
-  213  lxc list
-  214  clear
-  215  lxc delete --force edge-wifi-gw01
-  216  lxc launch ubuntu:bionic edge-wifi-gw01 -p router int
-  217  lxc profile show
-  218  lxc profile list
-  219  lxc launch ubuntu:bionic edge-wifi-gw01 -p int -p router
-  220  lxc list
-  221  clear
-  222  ip a
-  223  ovs-vsctl add-port air-bridge enp3s0
-  224  ip a
-  225  ip addr del 10.10.10.224/24 dev enp3s0
-  226  ip r
-  227  ping google.com
-  228  clear
-  229  ip a
-  230  ovs-vsctl add-port air-bridge mgmt0 -- set interface type=internal
-  231  ovs-vsctl add-port air-bridge mgmt0 -- set interface mgmt0 type=internal
-  232  clear
-  233  ip a
-  234  ip link set mgmt0 up
-  235  ip a
-  236  ip addr add 10.10.10.244/24 dev mgmt0
-  237  ping 10.10.10.221
-  238  clear
-  239  lxc list
-  240  lxc file push ./lxd-router.tar edge-wifi-gw01/root/
-  241  lxc exec edge-wifi-gw01 bash
-  242  clear; lxc list
-  243  lxc exec edge-wifi-gw01 bash
-  244  cd
-  245  clear
-  246  ls
-  247  tar xvf lxd-router.tar 
-  248  clear
-  249  ls
-  250  vim lxd-router/docs/lxd-cmds.md 
-  251  clear
-  252  ip a
-  253  lxc config device add edge-wifi-gw01 wlp1s0 nic nictype=bridged parent=maas name=wlp1s0
-  254  lxc config device add edge-wifi-gw01 wlp1s0 nic nictype=bridged parent=wlp1s0 name=wlp1s0
-  255  lxc stop edge-wifi-gw01
-  256  ip link set wlp1s0 down
-  257  clear
-  258  lxc config device add edge-wifi-gw01 wlp1s0 nic nictype=physical parent=wlp1s0 name=wlp1s0
-  259  lxc list
-  260  lxc start edge-wifi-gw01
-  261  lxc config device add edge-wifi-gw01 wlp1s0 nic nictype=physical parent=wlp1s0 nicname=wlp1s0
-  262  lxc info --show-log edge-wifi-gw01
-  263  lxc config set edge-wifi-gw01 security.privileged true
-  264  lxc start edge-wifi-gw01
-  265  lxc info --show-log edge-wifi-gw01
-  266  reboot
-  267  clear
-  268  ccccccevhhvjbdkihbttubfddvkllfcjvrhceckfjnne
-  269  clear
-  270  tmux ls
-  271  tmux a -t 0
-  272  cd
-  273  clear; lxc list
-  274  lxc start edge-wifi-gw01
-  275  lxc config edit edge-wifi-gw01
-  276  lxc config set edge-wifi-gw01 security.privileged true
-  277  lxc config show edge-wifi-gw01 security.privileged true
-  278  lxc config edge-wifi-gw01 security.privileged true
-  279  lxc config get edge-wifi-gw01 security.privileged true
-  280  clear
-  281  lxc config set edge-wifi-gw01 security.privileged true
-  282  lxc config get edge-wifi-gw01 security.privileged
-  283  lxc list
-  284  lxc start edge-wifi-gw01
-  285  lxc info --show-log edge-wifi-gw01
-  286  ip a s
-  287  ip link set wlp1s0 down
-  288  lxc start edge-wifi-gw01
-  289  lxc info --show-log edge-wifi-gw01
-  290  lxc device remove edge-wifi-gw01 wlp1s0
-  291  lxc device
-  292  clear
-  293  lxc list
-  294  exit
-  295  cd
-  296  clear
-  297  ls
-  298  rm iptables-start.sh 
-  299  rm lxd-router lxd-router.tar -rf
-  300  clear; ls
-  301  ls
-  302  clear
-  303  lxc file pull edge-wifi-gw01/root/lxd-router . -r
-  304  ls
-  305  mv lxd-init.yaml lxd-router/
-  306  cd lxd-router/
-  307  ls
-  308  git stage -A
-  309  cd ..
-  310  ls
-  311  mv lxd-router/ buildA
-  312  ip a
-  313  ip link set wlp1s0 up
-  314  clear
-  315  ip a
-  316  clear
-  317  nmtui
-  318  ip a
-  319  clear
-  320  git clone http://gitlab.com/kat.morgan/lxd-router.git
-  321  apt install git
-  322  clear
-  323  git clone http://gitlab.com/kat.morgan/lxd-router.git
-  324  ls
-  325  rm -rf lxd-router/*
-  326  mv buildA/* lxd-router/
-  327  cd lxd-router/
-  328  git stage -A
-  329  mkdir build
-  330  cd build/
-  331  exit
-  332  cd ~/lxd-router/build/
-  333  history >build-log
-  334  lxc list
-  335  lxc start edge-wifi-gw01
-  336  lxc start edge-wifi-gw01 bash
-  337  lxc exec edge-wifi-gw01 bash
-  338  ls
-  339  lxc file pull edge-wifi-gw01/root/lxd-router/build/history . 
-  340  lxc file pull edge-wifi-gw01/root/lxd-router/history . 
-  341  cat history >build-log 
-  342  history >build-log
-    1  cd lxd-router.tar 
-    2  tar xvf lxd-router.tar 
-    3  clear; ls
-    4  rm lxd-router.tar 
-    5  cd lxd-router/
-    6  clear
-    7  ls
-    8  ls bin/
-    9  ln bin/iptables-start.sh /etc/init.d/
-   10  ln bin/dhcpctl /usr/bin
-   11  ln bin/fwclr /usr/bin
-   12  ln bin/fwup /usr/bin/
-   13  clear
-   14  ls
-   15  apt-get install isc-dhcp-server network-manager -y
-   16  clear
-   17  ls
-   18  ln -f dhcpd/etc-default-dhcpd.conf /etc/default/isc-dhcp-server 
-   19  vim dhcpd/etc-default-dhcpd.conf 
-   20  ln dhcpd/etc-dhcp-dhcpd.conf /etc/dhcp/dhcpd.conf -f
-   21  ls
-   22  clear
-   23  ls
-   24  rm netplan
-   25  mkdir netplan
-   26  ln /etc/netplan/50-cloud-init.yaml netplan/iface.yaml
-   27  ls
-   28  systemctl enable isc-dhcp-server
-   29  nmtui
-   30  vim /etc/netplan/50-cloud-init.yaml 
-   31  reboot
-   32  vim /etc/dhcp/dhcpd.conf 
-   33  vim /etc/default/isc-dhcp-server 
-   34  reboot
-   35  clear; lxc list
-   36  ls
-   37  clear
-   38  ls
-   39  cd lxd-router/
-   40  history >history
+################################################################################
+# LXD Edge Firewall/Router Build Log
+# 
+#   This gist style guide demonstrates the core steps required to turn an LXD
+#   container into an edge Firewall/Router appliance suitable for lab testng
+#
+#   Example scenarios include:
+#   - Virtual network isolation for lab testing of MAAS environments, etc
+#   - Edge routing
+#   - Internal routing
+#   - Laptop wifi-as-wan network configuration 
+#   - - Enable ease of virt testing
+#   
+################################################################################
+# Install Apt Packages
+apt install -y \
+            vim \
+            lxd \
+            openvswitch-switch \
+            zfsutils-linux
+
+modprobe zfs
+
+################################################################################
+# Initialize LXD
+lxd init
+
+# Create Bridge
+lxc network create air-bridge
+lxc network edit air-bridge
+ovs-vsctl add-br air-bridge
+reboot
+
+# Create LXD Profiles for router & Internal bridge clients
+lxc profile copy default router
+lxc profile copy default int
+lxc profile edit router
+lxc profile edit int
+
+lxc launch ubuntu:bionic edge-wan-gw01-wlp1s0 -p router -p int
+lxc network attach air-bridge edge-wifi-gw01 eth0 eth0
+lxc network edit air-bridge
+lxc network attach air-bridge edge-wifi-gw01 eth1 eth1
+
+lxc profile list
+lxc launch ubuntu:bionic edge-wifi-gw01 -p int -p router
+lxc network attach lxdbr0 edge-wifi-gw01 eth1 eth1
+lxc delete --force edge-wifi-gw01
+
+################################################################################
+# Add Physical NIC to Bridge for hard wired traffic
+ovs-vsctl add-port air-bridge enp3s0
+
+################################################################################
+# Add Internal MGMT Interface to Host on Bridge
+ovs-vsctl add-port air-bridge mgmt0 -- set interface type=internal
+ovs-vsctl add-port air-bridge mgmt0 -- set interface mgmt0 type=internal
+ip link set mgmt0 up
+ip addr add 10.10.10.244/24 dev mgmt0
+
+################################################################################
+# Add WIFI Device to Container
+lxc config device add edge-wifi-gw01 wlp1s0 nic nictype=physical parent=wlp1s0 name=wlp1s0
+
+lxc config edit edge-wifi-gw01
+lxc config set edge-wifi-gw01 security.privileged true
+lxc config get edge-wifi-gw01 security.privileged true
+
+ip link set wlp1s0 down
+lxc start edge-wifi-gw01
+lxc info --show-log edge-wifi-gw01
+lxc start edge-wifi-gw01
+
+################################################################################
+# LXD Container Commands
+
+# Install packages
+apt install isc-dhcp-server network-manager -y
+
+# Set static IP address in netplan.yaml
+vim /etc/netplan/50-cloud-init.yaml 
+
+# Load iptables on boot via init.d
+ln bin/iptables-start.sh /etc/init.d/
+
+# Install executables 
+ln bin/dhcpctl /usr/bin
+ln bin/fwclr /usr/bin
+ln bin/fwup /usr/bin/
+
+# Load isc-dhcpd-server config files
+ln -f dhcpd/etc-default-dhcpd.conf /etc/default/isc-dhcp-server 
+ln -f dhcpd/etc-dhcp-dhcpd.conf /etc/dhcp/dhcpd.conf
+systemctl enable isc-dhcp-server
+
+################################################################################
+# Test air-bridge Client
+lxc launch ubuntu: test -p int
