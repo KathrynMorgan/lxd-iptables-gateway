@@ -1,0 +1,199 @@
+    1  lspci
+    2  clear
+    3  sudo apt-get update && sudo apt-get upgrade -y && sudo dist-upgrade
+    4  clear
+    5  sudo apt-get dist-upgrade
+    6  clear
+    7  exit
+    8  sudo apt install lxd
+    9  clear
+   10  apt-get show lxd
+   11  apt-cache info lxd
+   12  apt-cache show lxd
+   13  clear
+   14  apt-cache show lxd
+   15  clear
+   16  sudo snap install lxd
+   17  snap list
+   18  snap info
+   19  lxd --version
+   20  reboot
+   21  sudo apt-get install nvidia-384 --install-recommends
+   22  shutdown -h now
+   23  sudo su
+   24  lxc list
+   25  clear
+   26  lxc list
+   27  sudo su
+   28  clear
+   29  lxc list
+   30  lxc delete --force wifi-gw01
+   31  lxc launch ubuntu:bionic wifi-gw01
+   32  clear
+   33  lxc exec wifi-gw01 bash
+   34  clear
+   35  sudo su
+   36  history >>build.log
+    1  cd
+    2  clear
+    3  ip a
+    4  clear
+    5  lxc list
+    6  apt install lxd lxd-tools --install-recommends -y
+    7  clear
+    8  lxd init
+    9  apt install zfsutils-linux -y
+   10  lsblk
+   11  clear
+   12  modprobe zfs
+   13  clear
+   14  lsblk
+   15  clear
+   16  lxd init
+   17  clear
+   18  apt install openvswitch-switch --install-recommends -y
+   19  clear
+   20  systemctl status openvswitch-vswitchd
+   21  systemctl list-unit-files openvswitch
+   22  systemctl list-unit-files | grep openvswitch
+   23  systemctl status openvswitch-switch
+   24  clear
+   25  lxc network edit lxdbr0
+   26  reboot
+   27  clear
+   28  ls
+   29  cd
+   30  clear
+   31  lxc list
+   32  lxc launch ubuntu: wifi-gw01
+   33  clear
+   34  apt install tmux
+   35  clear
+   36  lxc ls
+   37  lxc config set wifi-gw01 security.privileged true
+   38  lxc config show wifi-gw01
+   39  lxc config get wifi-gw01 security.privileged
+   40  lxc restart wifi-gw01
+   41  lxc config get wifi-gw01 security.privileged
+   42  lxc config show wifi-gw01
+   43  lxc config show wifi-gw01 | grep sec
+   44  clear
+   45  lxc list
+   46  lxc exec wifi-gw01
+   47  clear
+   48  git clone gitlab.com/kat.morgan/lxd-router.git
+   49  apt install git
+   50  exit
+   51  cd
+   52  clear
+   53  ls
+   54  clear
+   55  tmux
+   56  lxc exec wifi-gw01 bash
+   57  shutdown -h now
+   58  cd; clear; cat /etc/group
+   59  clear
+   60  cd; clear; cat /etc/passwd
+   61  cd; clear; cat /etc/passwd | erin
+   62  cd; clear; cat /etc/passwd | grep erin
+   63  cd; clear; cat /etc/passwd | erin
+   64  cd; clear; cat /etc/passwd | grep erin
+   65  cd; clear; cat /etc/passwd
+   66  cat /etc/passwd | grep erin
+   67  tmux
+   68  ip a
+   69  clear
+   70  lxc exec wifi-gw01 
+   71  lxc exec wifi-gw01 bash
+   72  clear
+   73  lxc start wifi-gw01 
+   74  lxc config device add wifi-gw01 wlp2s0 nic nictype=physical parent=wlp2s0 name=wlp2s0
+   75  echo "lxc config device add wifi-gw01 wlp2s0 nic nictype=physical parent=wlp2s0 name=wlp2s0" >>build.log
+   76  clear
+   77  ip link show
+   78  clear
+   79  lxc list
+   80  clear; lxc list
+   81  lxc config device remove wifi-gw01 wlp2s0
+   82  lxc config device add wifi-gw01 wlp2s0 nic nictype=physical parent=wlp2s0 name=wlp2s0
+   83  lxc list
+   84  lxc exec wifi-gw01 bash
+   85  clear; lxc list
+   86  lxc start wifi-gw01 ; lxc list
+   87  clear
+   88  lxc config set wifi-gw01 security.privileged true
+   89  clear; lxc start wifi-gw01 ; lxc list
+   90  lxc info --show-log wifi-gw01 
+   91  clear; lxc start wifi-gw01 ; lxc list; lxc info --show-log wifi-gw01 
+   92  lxc exec wifi-gw01 
+   93  lxc exec wifi-gw01 bash
+   94  clear
+   95  lxc exec wifi-gw01 bash
+   96  clear
+   97  lxc exec wifi-gw01 bash
+   98  clear; lxc start wifi-gw01 ; lxc list; lxc info --show-log wifi-gw01 
+   99  lxc exec wifi-gw01 bash
+  100  shutdown -h now
+  101  cd
+  102  clear
+  103  cat /home/erin/build.log >build.log 
+  104  history >>build.log 
+    1  ls
+    2  git clone gitlab.com/kat.morgan/lxd-router.git
+    3  git clone https://gitlab.com/kat.morgan/lxd-router.git
+    4  apt install isc-dhcp-server --install-recommends -y
+    5  clear
+    6  exit
+    7  cd lxd-router/
+    8  ls
+    9  cd docs/
+   10  ls
+   11  vim lxd-cmds.md 
+   12  ls
+   13  cat lxd-router/
+   14  cd lxd-router/
+   15  ls
+   16  vim docs/
+   17  clear
+   18  ip a
+   19  shutdown -h now
+   20  clear
+   21  ip a
+   22  nmtui
+   23  apt install network-manager -y
+   24  ip r
+   25  ping google.com
+   26  clear
+   27  ping 8.8..8
+   28  ping 8.8.8.
+   29  ping 8.8.8.8
+   30  ping 10.10.10.10
+   31  clear
+   32  ip a
+   33  shutdown -h now
+   34  ip a
+   35  ping google.com
+   36  clear
+   37  apt install network-manager
+   38  nmtui
+   39  shutdown -h now
+   40  ip a
+   41  nmtui
+   42  systemctl list-unit-files | grep network
+   43  systemctl start network-manager
+   44  systemctl status network-manager
+   45  nmtui
+   46  ip a
+   47  ip link set eth0 down
+   48  ip r
+   49  ping google.com
+   50  clear
+   51  ls
+   52  cd lxd-router/
+   53  ls
+   54  history >>docs/build.log
+   55  shutdown -h now
+   56  ls
+   57  cd lxd-router/
+   58  ls
+   59  history >>docs/build.log 
