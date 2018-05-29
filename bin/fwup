@@ -1,25 +1,21 @@
 #!/bin/bash -e
 # Raise FW rules
 
-# delay for 5 seconds
-sleep 2
-
-# Load IPTABLES
-#iptables -F
-#iptables -X
+# Load Interfaces Config
+echo "IPTABLES: Loading Interface Configuration"
+source /root/lxd-router/iptables-enabled/interfaces.conf
 
 # Load base firewall rules
-echo "IPTABLES: Loading Firewall Rules"
-source /root/firewall-builder/iptables
+echo "IPTABLES: Loading Base Firewall Rules"
+source /root/lxd-router/iptables-enabled/iptables.conf 
 
 # Load base interface rules
-echo "IPTABLES: Loading interface rules"
-source /root/firewall-builder/*.rules
-source /root/firewall-builder/*.rules
+echo "IPTABLES: Loading Routing Rules"
+source /root/lxd-router/iptables-enabled/*.rules
 
 # Load iptables forwarding rules
-echo "IPTABLES: Loading forwarding rules"
-source /root/firewall-builder/*.fwd
+echo "IPTABLES: Loading forwarding Rules"
+source /root/lxd-router/iptables-enabled/*.fwd
 
 # Show rules & confirm startup complete
 iptables -L -v
