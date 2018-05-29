@@ -1,5 +1,5 @@
 #!/bin/bash
-# 'wan' eth0 rules
+# Rules for 'wan' wifi connection
 
 # Allow outbound dns on $internal_IFACE
 iptables -A OUTPUT -p udp -o $internal_IFACE  --dport 53 -j ACCEPT

@@ -1,5 +1,11 @@
-#!/bin/bash -e
+#!/bin/bash
 # Raise FW rules
+
+# Enable ipv4 forwarding
+sysctl -w net.ipv4.ip_forward=1
+
+# Clear Rules
+/usr/bin/fwclr
 
 # Load Interfaces Config
 echo "IPTABLES: Loading Interface Configuration"
