@@ -1,6 +1,7 @@
 ## LXD Gateway template files
 
 WORK IN PROGRESS
+***
     .
     ├── LICENSE
     ├── README.md
@@ -41,5 +42,6 @@ WORK IN PROGRESS
         ├── iptables.conf
         ├── iptables.fwd
         └── wan-ethernet.rules
+***
 
 9 directories, 30 files
