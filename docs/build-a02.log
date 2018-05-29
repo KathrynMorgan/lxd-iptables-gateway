@@ -1,0 +1,13 @@
+git clone https://gitlab.com/kat.morgan/lxd-router.git
+apt install -y isc-dhcp-server network-manager
+vim /etc/netplan/50-cloud-init.yaml 
+netplan apply
+netplan generate
+ln bin/dhcpctl /usr/bin/
+ln bin/fwclr /usr/bin/
+ln bin/fwup /usr/bin/
+ln bin/iptables-start.sh /etc/init.d/
+chmod +x /etc/init.d/iptables-start.sh
+cat /proc/sys/net/ipv4/ip_forward
+vim interfaces.conf 
+ln iptables-available/* iptables-enabled/
