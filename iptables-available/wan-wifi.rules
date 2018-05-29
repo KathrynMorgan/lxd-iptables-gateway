@@ -1,6 +1,5 @@
-# $internal_IFACE Network Rules
-#external_IFACE="gw01"
-#internal_IFACE="gw02"
+#!/bin/bash
+# Rules for 'wan' wifi connection
 
 # Allow outbound dns on $internal_IFACE
 iptables -A OUTPUT -p udp -o $internal_IFACE  --dport 53 -j ACCEPT
